@@ -2,12 +2,12 @@
 
 DOMAIN_NAME="mail.offenso.ru"     # имя домена почты
 EMAIL=/tmp/email.list           # список email адресов, существующих в Zimbra
-# список ID сообщений, которые мы хотим удалить
+# список ID сообщений
 MESID=/tmp/mesid.list           
 JUNKID=/tmp/Junkid.list
 DRAFTS=/tmp/Draftsid.list
 
-log=/var/log/mail-clean.log
+log=/var/log/mail-clean.log # Лог 
 
 /opt/zimbra/bin/zmprov -l gaa $DOMAIN_NAME | sort > $EMAIL  # выгружаем почту с Zimbra сортируем и записываем в фаил 
 
