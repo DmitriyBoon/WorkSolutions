@@ -1,0 +1,17 @@
+---
+# переменные роли useradd
+
+#  Путь до конфигурации ssh 
+adduser_sshd_config: /etc/ssh/sshd_config
+# В какую группу добавить пользователя 
+adduser_groups: "sudo"
+# Шелл пользователя 
+adduser_shell: "/bin/bash"
+# Имя пользователя
+adduser_user: "user1"
+# Пароль пользователя 
+adduser_password: "123456"
+# Путь до публичного ключа
+adduser_publickey_file: /etc/ansible/my.key
+# Добавление в файл sudoers
+adduser_sudo: "'ALL=(ALL)\ NOPASSWD: ALL'"

@@ -1,0 +1,4 @@
+---
+# handlers file for adduser
+- name: restart sshd
+  service: name={{ adduser_sshd_config }} state=restarted
