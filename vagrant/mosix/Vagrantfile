@@ -1,0 +1,78 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  config.vm.box = "geerlingguy/ubuntu1804"
+
+  # config.vm.provision "ansible" do |ansible|
+  #   ansible.verbose = "vvv"
+  #   ansible.playbook = "provisioning/playbook.yml"
+  #   ansible.become = "true"
+  # end
+
+
+  config.vm.provider "virtualbox" do |v|
+	  v.memory = 256
+  end
+
+  config.vm.define "mosix1" do |mosix1|
+    mosix1.vm.network "private_network", ip: "192.168.255.1", virtualbox__intnet: "iptab"
+    mosix1.vm.hostname = "mosix1"
+    mosix1.vm.provision "shell", inline: <<-SHELL
+    sudo apt-get install build-essential
+    sudo apt-get install gcc
+    sudo apt-get install cmake
+    mkdir /etc/mosix
+    cd /etc/mosix && mkdir var
+    cd /etc/mosix/var && wget http://www.mosix.cs.huji.ac.il/mos4/MOSIX-4.4.4.tbz
+    tar -xjvf MOSIX-4.4.4.tbz
+    cd /etc/mosix/var/mosix-4.4.4/
+    echo "192.168.255.1" >> /etc/mosix/mosix.map
+    echo "192.168.255.2" >> /etc/mosix/mosix.map
+    echo "192.168.255.3" >> /etc/mosix/mosix.map
+    #sudo /etc/init.d/mosix start
+    # ./mosix.install
+  SHELL
+  end
+
+  config.vm.define "mosix2" do |mosix2|
+    mosix2.vm.network "private_network", ip: "192.168.255.2", virtualbox__intnet: "iptab"
+    mosix2.vm.hostname = "mosix2"
+    mosix2.vm.provision "shell", inline: <<-SHELL
+    sudo apt-get install build-essential
+    sudo apt-get install gcc
+    sudo apt-get install cmake
+    mkdir /etc/mosix
+    cd /etc/mosix && mkdir var
+    cd /etc/mosix/var && wget http://www.mosix.cs.huji.ac.il/mos4/MOSIX-4.4.4.tbz
+    tar -xjvf MOSIX-4.4.4.tbz
+    cd /etc/mosix/var/mosix-4.4.4/
+    echo "192.168.255.1" >> /etc/mosix/mosix.map
+    echo "192.168.255.2" >> /etc/mosix/mosix.map
+    echo "192.168.255.3" >> /etc/mosix/mosix.map
+    #sudo /etc/init.d/mosix start
+    # ./mosix.install
+  SHELL
+end
+
+  config.vm.define "mosix3" do |mosix3|
+    mosix3.vm.network "private_network", ip: "192.168.255.3", virtualbox__intnet: "iptab"
+    mosix3.vm.hostname = "mosix3"
+    mosix3.vm.provision "shell", inline: <<-SHELL
+    sudo apt-get install build-essential
+    sudo apt-get install gcc
+    sudo apt-get install cmake
+    mkdir /etc/mosix
+    cd /etc/mosix && mkdir var
+    cd /etc/mosix/var && wget http://www.mosix.cs.huji.ac.il/mos4/MOSIX-4.4.4.tbz
+    tar -xjvf MOSIX-4.4.4.tbz
+    cd /etc/mosix/var/mosix-4.4.4/
+    echo "192.168.255.1" >> /etc/mosix/mosix.map
+    echo "192.168.255.2" >> /etc/mosix/mosix.map
+    echo "192.168.255.3" >> /etc/mosix/mosix.map
+    #sudo /etc/init.d/mosix start
+    # ./mosix.install
+SHELL
+end
+end
+# https://pastebin.com/TPhTaZ9b
